@@ -7,10 +7,17 @@ import { pool, testConnection } from "./src/database/index.js"
 
 dotenv.config()
 
-await testConnection()
-
 const users = await pool.query('SELECT * FROM users')
-console.log(users.rows.map((user) => ({ name: user.username })))
+console.log(users.rows.map((user) => ({ name: user.username, email:user.email })))
+
+try {
+    const user = pool.query(`
+     INSERT INTO users (username, email, password) VALUES ('ravi${Math.ceil((Math.random() * 100)) + 1}', 'ravi${Math.ceil((Math.random() * 100)) + 1}@gmail.com', 'ravi@1234');
+    `)
+} catch (error) {
+    console.log(error.message)
+}
+
 
 const app = express()
 const server = http.createServer(app)

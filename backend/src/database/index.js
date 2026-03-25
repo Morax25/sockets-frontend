@@ -50,6 +50,8 @@ export async function testConnection() {
     )
 }
 
+await testConnection()
+
 const closePool = () => {
     pool.end().then(() => {
         console.log("postgres pool closed")
