@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 
 // Connect socket
@@ -7,7 +7,6 @@ const socket = io("http://localhost:3001");
 const Chat = () => {
   const [userMessage, setUserMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const messagesEndRef = useRef(null); // for auto-scroll
 
   // Send message
   const handleSendMessage = () => {
@@ -58,7 +57,9 @@ const Chat = () => {
           <div
             key={i}
             className={`px-4 py-2 rounded-2xl max-w-xs break-words shadow ${
-              msg.id === socket.id ? "bg-blue-100 text-gray-900 ml-auto" : "bg-white text-gray-800"
+              msg.id === socket.id
+                ? "bg-blue-100 text-gray-900 ml-auto"
+                : "bg-white text-gray-800"
             }`}
           >
             <strong>{msg.id === socket.id ? "You" : "Other"}: </strong>
